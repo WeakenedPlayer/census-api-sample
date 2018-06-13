@@ -19,8 +19,8 @@
 		"test": "node-dev dist/index.js"
 	},
 	"dependencies": {
-		"@weakenedplayer/census-api": "^0.1.4",
-		"@weakenedplayer/websocket-wrapper": "0.0.3",
+		"@weakenedplayer/census-api": "^0.2.0-beta.2",
+		"@weakenedplayer/websocket-wrapper": "0.0.4",
 		"rxjs": "^6.2.0"
 	},
 	"devDependencies": {},

@@ -5,7 +5,6 @@ import { tap } from 'rxjs/operators';
 
 // Rest API Query
 let outfit: Census.RestQuery = new Census.RestQuery( 'outfit' );
-
 outfit.where( 'outfit_id', t => {
     t.contains( '37512998641471064' );
 } )
@@ -29,15 +28,18 @@ api.get( outfit )
 .subscribe();
 
 
-
 let websocket = new NodeWebsocket();
 let eventStream = new Census.EventStream( websocket );
+let filter = Census.EventFilter.filterByWorld( Census.EventConstant.convertWorldName2Id( [ 'connery' ] ) );
+console.log( filter );
 
-websocket.connect().then( () => {
-    eventStream.addEvent( [ Census.EventConstant.PlayerLogin ],
-            Census.EventFilter.filterByWorld( Census.EventConstant.convertWorldName2Id( [ 'Connery' ] ) ) );    
+eventStream.connect().then( () => {
+    console.log( 'connected')
+    return eventStream.addEvent( [ Census.EventConstant.PlayerLogin ], filter );
+} ).then( res => {
+    console.log( res );
     eventStream.playerLogin$.subscribe( event => {
         console.log( 'ID: ' + event.character_id + ' has been logged in.' );
-    } );
+    } );    
 } );
 

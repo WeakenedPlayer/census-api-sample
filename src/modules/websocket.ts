@@ -15,7 +15,7 @@ export class NodeWebsocket implements Census.EventStreamWebsocket {
     }
     
     send( data: any ): void {
-        return this.ws.send( JSON.stringify( data ) );
+        return this.ws.send( data );
     }
     
     connect(): Promise<void> {
@@ -24,5 +24,9 @@ export class NodeWebsocket implements Census.EventStreamWebsocket {
     
     disconnect(): Promise<void> {
         return this.ws.close();
+    }
+    
+    get isConnected(): boolean {
+        return this.ws.opened;
     }
 }
