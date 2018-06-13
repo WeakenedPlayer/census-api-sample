@@ -1,7 +1,7 @@
 {
 	"scope": "@weakenedplayer",
 	"name": "@weakenedplayer/census-api-sample",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "sample",
 	"keywords": [
 		"Census API",
