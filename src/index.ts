@@ -6,7 +6,7 @@ import { tap } from 'rxjs/operators';
 // Rest API Query
 let outfit: Census.RestQuery = new Census.RestQuery( 'outfit' );
 outfit.where( 'outfit_id', t => {
-    t.contains( '37512998641471064' );
+    t.equals( '37512998641471064' );
 } )
 .join( 'character', ( join ) =>{
     join.on( 'leader_character_id' );
@@ -43,4 +43,3 @@ eventStream.connect().then( () => {
         console.log( event.character_id + ' がログインしました。' );
     } );    
 } );
-
