@@ -17,29 +17,30 @@ outfit.where( 'outfit_id', t => {
     } );
 });
 
-// display query
-console.log( outfit.toString() );
-
 let api = new Census.RestApi( new NodeHttp() );
 api.get( outfit )
 .pipe( tap( res => {
+    console.log( '########################################');
+    console.log('REST APIテスト: Outfit情報取得');
+    console.log( '########################################');
     console.log( res );
 } ) )
 .subscribe();
 
-
 let websocket = new NodeWebsocket();
 let eventStream = new Census.EventStream( websocket );
 let filter = Census.EventFilter.filterByWorld( Census.EventConstant.convertWorldName2Id( [ 'connery' ] ) );
-console.log( filter );
 
 eventStream.connect().then( () => {
-    console.log( 'connected')
+    console.log( '########################################');
+    console.log( 'Event Streamテスト: Conneryログインモニタ' );
+    console.log( '########################################');
+    
     return eventStream.addEvent( [ Census.EventConstant.PlayerLogin ], filter );
 } ).then( res => {
     console.log( res );
     eventStream.playerLogin$.subscribe( event => {
-        console.log( 'ID: ' + event.character_id + ' has been logged in.' );
+        console.log( event.character_id + ' がログインしました。' );
     } );    
 } );
 
