@@ -19,13 +19,12 @@ outfit.where( 'outfit_id', t => {
 
 let api = new Census.RestApi( new NodeHttp() );
 api.get( outfit )
-.pipe( tap( res => {
+.then( res => {
     console.log( '########################################');
     console.log('REST APIテスト: Outfit情報取得');
     console.log( '########################################');
     console.log( res );
-} ) )
-.subscribe();
+} );
 
 let websocket = new NodeWebsocket();
 let eventStream = new Census.EventStream( websocket );

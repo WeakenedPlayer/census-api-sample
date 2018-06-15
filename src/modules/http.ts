@@ -1,17 +1,15 @@
 import * as request from 'request';
 import { Census } from '@weakenedplayer/census-api';
-import { Observable } from 'rxjs';
 
 export class NodeHttp implements Census.RestApiHttp {
-    get( url: string ): Observable<any> {
-        return Observable.create( ( observer => { 
+    get( url: string ): Promise<any> {
+        return new Promise( ( resolve, reject ) => { 
             request( url, ( error, res, body ) => {
                 if( error ) {
-                    observer.error( error );
+                    reject( error );
                 } 
-                observer.next( JSON.parse( body ) );
-                observer.complete();
+                resolve( JSON.parse( body ) );
             } );
-        } ) );
+        } );
     }
 }
